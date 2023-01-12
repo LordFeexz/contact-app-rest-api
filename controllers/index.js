@@ -28,6 +28,20 @@ class Controller {
       next(err);
     }
   }
+
+  static async getDatabyId(req, res, next) {
+    try {
+      const { id: _id } = req.params;
+
+      const contact = await Contact.findById({ _id });
+
+      if (!contact) throw { name: "Data not found" };
+
+      res.status(200).json(contact);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = Controller;

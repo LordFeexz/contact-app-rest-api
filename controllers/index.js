@@ -12,6 +12,22 @@ class Controller {
       next(err);
     }
   }
+
+  static async createData(req, res, next) {
+    try {
+      const { name, phoneNumber } = req.body;
+
+      const contact = await Contact.findOne({ phoneNumber });
+
+      if (contact) throw { name: "Data already exist" };
+
+      await Contact.insertMany({ name, phoneNumber });
+
+      res.status(201).json({ message: "success create" });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = Controller;

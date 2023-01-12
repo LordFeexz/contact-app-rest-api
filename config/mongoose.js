@@ -4,4 +4,6 @@ mongoose.connect("mongodb://127.0.0.1/Contact", {
   useUnifiedTopology: true,
 });
 
+mongoose.set("strictQuery", true);
+
 module.exports = mongoose;

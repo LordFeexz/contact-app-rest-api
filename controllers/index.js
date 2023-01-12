@@ -3,7 +3,32 @@ const Contact = require("../models/contact");
 class Controller {
   static async getData(req, res, next) {
     try {
-      const contacts = await Contact.find();
+      let { prefixNumber, page } = req.query;
+      let limit = 5;
+
+      prefixNumber = `\\+${prefixNumber}`;
+
+      if (!page) page = 1;
+
+      let option = [];
+
+      if (prefixNumber) {
+        option.push({
+          $match: {
+            phoneNumber: { $regex: new RegExp(prefixNumber) },
+          },
+        });
+      }
+
+      option.push({
+        $skip: (page - 1) * limit,
+      });
+
+      option.push({
+        $limit: limit,
+      });
+
+      const contacts = await Contact.aggregate(option);
 
       if (contacts.length < 1) throw { name: "Data not found" };
 

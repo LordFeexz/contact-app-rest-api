@@ -56,6 +56,22 @@ class Controller {
       next(err);
     }
   }
+
+  static async updateData(req, res, next) {
+    try {
+      const { id: _id } = req.params;
+
+      const { phoneNumber } = req.body;
+
+      const contact = await Contact.findByIdAndUpdate({ _id }, { phoneNumber });
+
+      if (!contact) throw { name: "Failed update" };
+
+      res.status(201).json({ message: "success update" });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = Controller;

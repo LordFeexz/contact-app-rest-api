@@ -12,6 +12,9 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "CastError") {
     status = 400;
     message = "invalid params";
+  } else if (err.name === "Failed update") {
+    status = 502;
+    message = err.name;
   }
 
   res.status(status).json({ message });

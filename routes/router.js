@@ -10,4 +10,6 @@ router.get("/api/:id", Controller.getDatabyId);
 
 router.delete("api/:id", Controller.deleteDataById);
 
+router.patch("/api/:id", Controller.updateData);
+
 module.exports = router;

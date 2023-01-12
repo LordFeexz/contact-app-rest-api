@@ -42,6 +42,20 @@ class Controller {
       next(err);
     }
   }
+
+  static async deleteDataById(req, res, next) {
+    try {
+      const { id: _id } = req.params;
+
+      const contact = await Contact.findOneAndDelete({ _id });
+
+      if (!contact) throw { name: "Data not found" };
+
+      res.status(200).json({ message: "success delete" });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = Controller;

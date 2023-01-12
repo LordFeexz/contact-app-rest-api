@@ -9,6 +9,9 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "Data already exist") {
     status = 409;
     message = "Conflict";
+  } else if (err.name === "CastError") {
+    status = 400;
+    message = "invalid params";
   }
 
   res.status(status).json({ message });

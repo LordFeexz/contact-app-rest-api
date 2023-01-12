@@ -21,7 +21,7 @@ class Controller {
 
       if (contact) throw { name: "Data already exist" };
 
-      await Contact.insertMany({ name, phoneNumber });
+      await Contact.create({ name, phoneNumber });
 
       res.status(201).json({ message: "success create" });
     } catch (err) {
